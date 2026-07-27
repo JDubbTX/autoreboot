@@ -4,4 +4,5 @@ Documentation=man:systemctl(1)
 
 [Service]
 Type=oneshot
+EnvironmentFile=/etc/weekly-reboot.env
 ExecStart=/usr/local/bin/notify-and-reboot.sh
