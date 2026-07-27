@@ -1,14 +1,6 @@
-# Systemd unit files
-*.service
-*.timer
+# Logs
+*.log
 
-# Scripts
-*.sh
-
-# Documentation
-*.md
-
-# Exclude potential sensitive files if added later
+# Sensitive files
 .env
 secret*
-*.config

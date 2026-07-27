@@ -1,0 +1,18 @@
+[Unit]
+Description=Weekly Automatic Reboot Timer
+Documentation=man:systemd.timer(5)
+
+[Timer]
+# Run weekly on Sundays at 3:00 AM.
+# You can customize the schedule using systemd's calendar event format.
+# Examples:
+#   Every Sunday at midnight: Sun *-*-* 00:00:00
+#   Every Monday at 4:30 AM: Mon *-*-* 04:30:00
+OnCalendar=Sun *-*-* 03:00:00
+
+# We do not use Persistent=true to avoid triggering an immediate reboot
+# upon turning the machine on if it was powered off during the scheduled time.
+Persistent=false
+
+[Install]
+WantedBy=timers.target

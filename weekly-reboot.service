@@ -1,0 +1,7 @@
+[Unit]
+Description=Weekly Automatic Reboot Service
+Documentation=man:systemctl(1)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/notify-and-reboot.sh
