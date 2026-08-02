@@ -94,3 +94,7 @@ To remove the service and timer:
 ```bash
 sudo ./uninstall.sh
 ```
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
