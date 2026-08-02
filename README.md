@@ -16,6 +16,19 @@ This project sets up a systemd timer to automatically reboot the machine every w
 - `install.sh`: Installation script (requires root).
 - `uninstall.sh`: Removal script (requires root).
 
+## Requirements
+
+- Linux system with `systemd` (`systemctl` available).
+- Root/sudo access (installation, service management, and reboot require elevated privileges).
+- Python 3 installed.
+- Internet access from the server to Microsoft OAuth and Microsoft Graph endpoints.
+- A Microsoft account (for example Outlook/Hotmail) that will send the email.
+- An Azure/Microsoft Entra app registration configured for device-code OAuth with delegated Microsoft Graph permission `Mail.Send`.
+- Azure account sign-up may require a credit card for verification/billing setup, but this app registration workflow is effectively free for long-term personal use.
+- Required environment variables in `.env`: `RECIPIENT_EMAIL` and `MICROSOFT_OAUTH_CLIENT_ID`.
+- Optional environment variables in `.env`: `MICROSOFT_OAUTH_TENANT` (defaults to `consumers`) and `MICROSOFT_OAUTH_TOKEN_FILE` (defaults to `/var/lib/weekly-reboot/oauth-token.json`).
+- Current `install.sh` dependency step uses `dnf` (Fedora/RHEL-family). On other systemd-based distributions, install Python 3 with your distro package manager first, then run the install script.
+
 ## Installation
 
 1.  **Clone/Copy** these files to your machine.
