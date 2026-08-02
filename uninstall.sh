@@ -18,11 +18,10 @@ rm -f /etc/systemd/system/weekly-reboot.service
 rm -f /etc/systemd/system/weekly-reboot.timer
 rm -f /usr/local/bin/notify-and-reboot.sh
 rm -f /usr/local/bin/test-email.sh
+rm -f /usr/local/bin/authorize-email.sh
+rm -f /usr/local/bin/weekly-reboot-mail.py
 rm -f /etc/weekly-reboot.env
-
-if [[ -f /etc/s-nail.rc ]]; then
-  sed -i '/^# BEGIN weekly-reboot managed SMTP config$/,/^# END weekly-reboot managed SMTP config$/d' /etc/s-nail.rc
-fi
+rm -rf /var/lib/weekly-reboot
 
 echo "Reloading systemd daemon..."
 systemctl daemon-reload
