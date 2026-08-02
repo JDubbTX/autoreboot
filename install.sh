@@ -30,8 +30,10 @@ echo "Installing weekly-reboot service, timer, and notification scripts..."
 
 # Copy files to system directories
 cp "$SCRIPT_DIR/weekly-reboot.service" /etc/systemd/system/
+cp "$SCRIPT_DIR/weekly-reboot-complete.service" /etc/systemd/system/
 cp "$SCRIPT_DIR/weekly-reboot.timer" /etc/systemd/system/
 cp "$SCRIPT_DIR/notify-and-reboot.sh" /usr/local/bin/
+cp "$SCRIPT_DIR/notify-reboot-complete.sh" /usr/local/bin/
 cp "$SCRIPT_DIR/test-email.sh" /usr/local/bin/
 cp "$SCRIPT_DIR/authorize-email.sh" /usr/local/bin/
 cp "$SCRIPT_DIR/weekly-reboot-mail.py" /usr/local/bin/
@@ -66,8 +68,10 @@ mkdir -p "$STATE_DIR"
 
 # Set appropriate permissions
 chmod 644 /etc/systemd/system/weekly-reboot.service
+chmod 644 /etc/systemd/system/weekly-reboot-complete.service
 chmod 644 /etc/systemd/system/weekly-reboot.timer
 chmod 755 /usr/local/bin/notify-and-reboot.sh
+chmod 755 /usr/local/bin/notify-reboot-complete.sh
 chmod 755 /usr/local/bin/test-email.sh
 chmod 755 /usr/local/bin/authorize-email.sh
 chmod 755 /usr/local/bin/weekly-reboot-mail.py
@@ -81,6 +85,9 @@ systemctl daemon-reload
 # Enable and start the timer
 echo "Enabling and starting weekly-reboot.timer..."
 systemctl enable --now weekly-reboot.timer
+
+echo "Enabling weekly-reboot-complete.service for post-boot completion notifications..."
+systemctl enable weekly-reboot-complete.service
 
 echo "=========================================================="
 echo "Weekly reboot timer has been successfully installed!"

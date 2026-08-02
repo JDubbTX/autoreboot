@@ -13,10 +13,15 @@ fi
 echo "Stopping and disabling weekly-reboot.timer..."
 systemctl disable --now weekly-reboot.timer || true
 
+echo "Disabling weekly-reboot-complete.service..."
+systemctl disable weekly-reboot-complete.service || true
+
 echo "Removing files..."
 rm -f /etc/systemd/system/weekly-reboot.service
+rm -f /etc/systemd/system/weekly-reboot-complete.service
 rm -f /etc/systemd/system/weekly-reboot.timer
 rm -f /usr/local/bin/notify-and-reboot.sh
+rm -f /usr/local/bin/notify-reboot-complete.sh
 rm -f /usr/local/bin/test-email.sh
 rm -f /usr/local/bin/authorize-email.sh
 rm -f /usr/local/bin/weekly-reboot-mail.py

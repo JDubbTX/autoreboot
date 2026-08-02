@@ -1,0 +1,14 @@
+[Unit]
+Description=Weekly Reboot Completion Notification Service
+Documentation=man:systemctl(1)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/var/lib/weekly-reboot/pending-post-reboot-email
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/weekly-reboot.env
+ExecStart=/usr/local/bin/notify-reboot-complete.sh
+
+[Install]
+WantedBy=multi-user.target

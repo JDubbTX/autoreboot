@@ -1,14 +1,16 @@
 # Weekly Automatic Reboot with Email Notification
 
-This project sets up a systemd timer to automatically reboot the machine every week on Sunday at 3:00 AM. It sends an email notification through Microsoft Graph just before the reboot occurs.
+This project sets up a systemd timer to automatically reboot the machine every week on Sunday at 3:00 AM. It sends an email notification through Microsoft Graph just before reboot and another email after the reboot has completed.
 
 ## Components
 
 - `weekly-reboot.service`: The systemd service that triggers the notification script.
+- `weekly-reboot-complete.service`: The systemd service that sends a post-boot completion email.
 - `weekly-reboot.timer`: The systemd timer that schedules the weekly event.
 - `weekly-reboot-mail.py`: Python mail sender that uses Microsoft Graph OAuth.
 - `authorize-email.sh`: One-time device-code authorization helper.
 - `notify-and-reboot.sh`: A bash script that sends the email and initiates the reboot.
+- `notify-reboot-complete.sh`: A bash script that sends the post-reboot completion email.
 - `test-email.sh`: A bash script that sends a test email only (no reboot).
 - `.env.example`: Template environment file for the recipient address.
 - `install.sh`: Installation script (requires root).
@@ -47,6 +49,8 @@ This project sets up a systemd timer to automatically reboot the machine every w
 
 Create an app registration in Azure/Microsoft Entra before installing:
 
+Microsoft Entra app registration is available on free Microsoft accounts such as outlook.com and hotmail.com email addresses. Creating the Azure account requires a credit card for identity verification and billing during sign-up, but this specific app registration flow (device-code OAuth + Microsoft Graph `Mail.Send`) is effectively free for long-term personal use.
+
 1. Go to the Azure portal App registrations page.
 2. Create a new app that supports personal Microsoft accounts.
 3. Enable public client flows for the app.
@@ -60,6 +64,10 @@ This project uses device-code OAuth with a cached refresh token, so it works for
 - **Check Timer Status**:
   ```bash
   systemctl status weekly-reboot.timer
+  ```
+- **Check Reboot Completion Service Status**:
+  ```bash
+  systemctl status weekly-reboot-complete.service
   ```
 - **List All Active Timers**:
   ```bash
